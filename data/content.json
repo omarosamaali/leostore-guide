@@ -1,0 +1,158 @@
+{
+  "site": {
+    "title": "ليوستور - دليل تفعيل الاشتراك",
+    "subtitle": "اتبع الخطوات البسيطة لتفعيل اشتراكك على جهازك",
+    "logo": "/images/logo.jpeg",
+    "storeUrl": "https://leos20.com",
+    "whatsapp": "966533279967",
+    "headerBg": "#0a0a0a",
+    "accentColor": "#c9a84c"
+  },
+  "devices": [
+    {
+      "id": "android-tv",
+      "name": "شاشة TV أندرويد",
+      "icon": "📺",
+      "color": "#3ddc84",
+      "appName": "8K Player",
+      "appPackage": "com.leostore.iptv",
+      "steps": [
+        "افتح متجر Google Play على شاشتك",
+        "ابحث عن تطبيق 8K Player",
+        "اضغط على تثبيت وانتظر اكتمال التحميل",
+        "افتح التطبيق وأدخل كود التفعيل الخاص بك",
+        "اضغط تفعيل واستمتع بالمشاهدة"
+      ],
+      "downloadUrl": "",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على شاشة أندرويد TV",
+      "note": "تأكد من تحديث Google Play قبل التثبيت"
+    },
+    {
+      "id": "lg-samsung",
+      "name": "LG & Samsung",
+      "icon": "🖥️",
+      "color": "#c9a84c",
+      "appName": "8K Player",
+      "steps": [
+        "اضغط على زر Home في الريموت",
+        "افتح LG Content Store أو Samsung Apps",
+        "ابحث عن 8K Player",
+        "ثبت التطبيق وافتحه",
+        "أدخل كود الاشتراك وتمتع"
+      ],
+      "downloadUrl": "",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على LG وSamsung",
+      "note": "في حال عدم وجود التطبيق في المتجر، تواصل معنا عبر واتساب"
+    },
+    {
+      "id": "iphone-ipad",
+      "name": "iPhone & iPad",
+      "icon": "📱",
+      "color": "#a2aaad",
+      "appName": "8K Player",
+      "steps": [
+        "افتح App Store على جهازك",
+        "ابحث عن 8K Player",
+        "اضغط تحميل Get",
+        "افتح التطبيق بعد اكتمال التثبيت",
+        "أدخل كود التفعيل واستمتع"
+      ],
+      "downloadUrl": "https://apps.apple.com",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على iPhone وiPad",
+      "note": "يجب أن يكون نظام iOS 14 أو أحدث"
+    },
+    {
+      "id": "android-phone",
+      "name": "جوال أندرويد",
+      "icon": "📲",
+      "color": "#3ddc84",
+      "appName": "8K Player",
+      "steps": [
+        "افتح Google Play على جوالك",
+        "ابحث عن 8K Player",
+        "اضغط تثبيت",
+        "افتح التطبيق بعد التثبيت",
+        "أدخل كود الاشتراك وتمتع"
+      ],
+      "downloadUrl": "https://play.google.com",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على أندرويد",
+      "note": "يجب أن يكون إصدار أندرويد 6.0 أو أحدث"
+    },
+    {
+      "id": "windows",
+      "name": "Windows",
+      "icon": "💻",
+      "color": "#0078d4",
+      "appName": "8K Player",
+      "steps": [
+        "حمل التطبيق من الرابط أدناه",
+        "افتح ملف التثبيت .exe",
+        "اتبع خطوات التثبيت",
+        "افتح التطبيق من سطح المكتب",
+        "أدخل كود الاشتراك وتمتع"
+      ],
+      "downloadUrl": "",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على Windows",
+      "note": "يدعم Windows 10 وWindows 11"
+    },
+    {
+      "id": "mac",
+      "name": "Mac",
+      "icon": "🍎",
+      "color": "#555555",
+      "appName": "8K Player",
+      "steps": [
+        "افتح App Store على جهاز Mac",
+        "ابحث عن 8K Player",
+        "اضغط تحميل",
+        "افتح التطبيق من Launchpad",
+        "أدخل كود الاشتراك وتمتع"
+      ],
+      "downloadUrl": "",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على Mac",
+      "note": "يدعم macOS 11 Big Sur وأحدث"
+    },
+    {
+      "id": "playstation",
+      "name": "PlayStation",
+      "icon": "🎮",
+      "color": "#003087",
+      "appName": "8K Player",
+      "steps": [
+        "افتح PlayStation Store",
+        "ابحث عن 8K Player",
+        "حمل التطبيق",
+        "افتحه من قائمة الألعاب والتطبيقات",
+        "أدخل كود الاشتراك وتمتع"
+      ],
+      "downloadUrl": "",
+      "videoUrl": "",
+      "videoTitle": "شرح تفعيل على PlayStation",
+      "note": "يدعم PS4 وPS5"
+    },
+    {
+      "id": "browser",
+      "name": "المتصفح",
+      "icon": "🌐",
+      "color": "#ff6b35",
+      "appName": "Web Player",
+      "steps": [
+        "افتح أي متصفح (Chrome, Firefox, Edge)",
+        "اذهب إلى الرابط المرفق معك",
+        "أدخل بيانات الاشتراك",
+        "اختر المحتوى وابدأ المشاهدة مباشرة",
+        "لا حاجة لتحميل أي شيء"
+      ],
+      "downloadUrl": "",
+      "videoUrl": "",
+      "videoTitle": "شرح التشغيل عبر المتصفح",
+      "note": "يعمل على جميع المتصفحات الحديثة"
+    }
+  ]
+}

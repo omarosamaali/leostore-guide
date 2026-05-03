@@ -1,0 +1,13 @@
+{
+  "name": "leostore-guide",
+  "version": "1.0.0",
+  "description": "Leostore app installation guide with admin panel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

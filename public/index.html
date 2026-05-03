@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">ليوستور - دليل تفعيل الاشتراك</title>
+  <link rel="icon" type="image/jpeg" href="/images/logo.jpeg" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dark: #a07830;
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #1a1a1a;
+      --text: #f0f0f0;
+      --text-muted: #888;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.95) 100%);
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-wrap img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+    .wa-btn:hover { background: #1db954; transform: scale(1.05); }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #000 0%, #111 50%, #1a1200 100%);
+      text-align: center;
+      padding: 60px 20px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===== DEVICE TABS ===== */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .section-title::before,
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+      max-width: 200px;
+    }
+
+    /* Tabs scroll row */
+    .tabs-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) transparent;
+      margin-bottom: 30px;
+    }
+    .tabs-row::-webkit-scrollbar { height: 4px; }
+    .tabs-row::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    .tab-btn {
+      flex-shrink: 0;
+      background: var(--bg3);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-color: var(--gold);
+      color: #000;
+      font-weight: 900;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .tab-icon { font-size: 1.2rem; }
+
+    /* Device panel */
+    .device-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .device-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .panel-grid { grid-template-columns: 1fr; }
+    }
+
+    .steps-card {
+      background: var(--bg2);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+
+    .step-text {
+      color: var(--text);
+      line-height: 1.6;
+      padding-top: 4px;
+      font-size: 0.97rem;
+    }
+
+    .note-box {
+      margin-top: 20px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #000;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 1rem;
+      margin-top: 20px;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201,168,76,0.4);
+    }
+    .download-btn.hidden { display: none; }
+
+    /* Video card */
+    .video-card {
+      background: var(--bg2);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #000;
+      flex: 1;
+    }
+    .video-wrapper iframe,
+    .video-wrapper video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .no-video {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      color: var(--text-muted);
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+    .no-video-icon { font-size: 3rem; opacity: 0.4; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    /* Loading */
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header">
+  <a class="logo-wrap" id="store-link" href="#" target="_blank">
+    <img id="site-logo" src="/images/logo.jpeg" alt="Logo" />
+    <span class="logo-text" id="logo-text">ليوستور</span>
+  </a>
+  <a class="wa-btn" id="wa-link" href="#" target="_blank">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    تواصل معنا
+  </a>
+</header>
+
+<div id="loading">جار التحميل...</div>
+
+<main id="main-content" style="display:none">
+  <section class="hero">
+    <div class="hero-badge">🎬 دليل تفعيل الاشتراك</div>
+    <h1 id="hero-title">اتبع الخطوات البسيطة لتفعيل اشتراكك</h1>
+    <p id="hero-subtitle">اختر نوع جهازك من الأسفل واتبع التعليمات خطوة بخطوة</p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">اختر جهازك</div>
+
+    <div class="tabs-row" id="tabs-row"></div>
+
+    <div id="panels-container"></div>
+  </section>
+</main>
+
+<footer id="site-footer">
+  <p>جميع الحقوق محفوظة &copy; <a id="footer-link" href="#" target="_blank">ليوستور</a> 2025</p>
+</footer>
+
+<script>
+async function loadContent() {
+  try {
+    const res = await fetch('/api/content');
+    const data = await res.json();
+    renderPage(data);
+  } catch(e) {
+    document.getElementById('loading').textContent = 'حدث خطأ في التحميل، حاول مجدداً';
+  }
+}
+
+function getYoutubeId(url) {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^&?/\s]{11})/);
+  return m ? m[1] : null;
+}
+
+function renderVideo(device) {
+  if (!device.videoUrl) {
+    return `<div class="no-video">
+      <span class="no-video-icon">🎬</span>
+      <span>الفيديو التوضيحي غير متاح حالياً</span>
+    </div>`;
+  }
+  const ytId = getYoutubeId(device.videoUrl);
+  if (ytId) {
+    return `<div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen loading="lazy"></iframe>
+    </div>`;
+  }
+  return `<div class="video-wrapper">
+    <video controls>
+      <source src="${device.videoUrl}" />
+      متصفحك لا يدعم تشغيل الفيديو
+    </video>
+  </div>`;
+}
+
+function renderPage(data) {
+  const { site, devices } = data;
+
+  document.getElementById('page-title').textContent = site.title;
+  document.getElementById('site-logo').src = site.logo;
+  document.getElementById('logo-text').textContent = 'ليوستور';
+  document.getElementById('store-link').href = site.storeUrl;
+  document.getElementById('footer-link').href = site.storeUrl;
+  document.getElementById('footer-link').textContent = site.storeUrl.replace('https://', '');
+  document.getElementById('wa-link').href = `https://wa.me/${site.whatsapp}`;
+  document.getElementById('hero-title').textContent = site.subtitle;
+
+  const tabsRow = document.getElementById('tabs-row');
+  const panelsCont = document.getElementById('panels-container');
+
+  devices.forEach((dev, i) => {
+    // Tab button
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.dataset.id = dev.id;
+    btn.innerHTML = `<span class="tab-icon">${dev.icon}</span>${dev.name}`;
+    btn.addEventListener('click', () => switchTab(dev.id));
+    tabsRow.appendChild(btn);
+
+    // Panel
+    const stepsHtml = dev.steps.map((s, idx) =>
+      `<li class="step-item">
+        <span class="step-num">${idx + 1}</span>
+        <span class="step-text">${s}</span>
+      </li>`
+    ).join('');
+
+    const dlBtn = dev.downloadUrl
+      ? `<a href="${dev.downloadUrl}" target="_blank" class="download-btn">⬇️ تحميل ${dev.appName}</a>`
+      : '';
+
+    const panel = document.createElement('div');
+    panel.className = 'device-panel' + (i === 0 ? ' active' : '');
+    panel.dataset.id = dev.id;
+    panel.innerHTML = `
+      <div class="panel-grid">
+        <div class="steps-card">
+          <div class="card-title">${dev.icon} خطوات التفعيل على ${dev.name}</div>
+          <ul class="steps-list">${stepsHtml}</ul>
+          ${dev.note ? `<div class="note-box">💡 ${dev.note}</div>` : ''}
+          ${dlBtn}
+        </div>
+        <div class="video-card">
+          <div class="card-title">🎬 ${dev.videoTitle || 'الفيديو التوضيحي'}</div>
+          ${renderVideo(dev)}
+        </div>
+      </div>
+    `;
+    panelsCont.appendChild(panel);
+  });
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.id === id));
+  document.querySelectorAll('.device-panel').forEach(p => p.classList.toggle('active', p.dataset.id === id));
+}
+
+loadContent();
+</script>
+</body>
+</html>

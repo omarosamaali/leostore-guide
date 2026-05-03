@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم - ليوستور</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --bg: #0d0d0d;
+      --bg2: #161616;
+      --bg3: #1e1e1e;
+      --border: rgba(201,168,76,0.25);
+      --text: #f0f0f0;
+      --muted: #888;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Login screen */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, #1a1200 0%, #0d0d0d 70%);
+    }
+
+    .login-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-logo { width: 80px; height: auto; margin-bottom: 20px; border-radius: 10px; }
+
+    .login-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .login-sub { color: var(--muted); margin-bottom: 32px; font-size: 0.9rem; }
+
+    .form-group { margin-bottom: 16px; text-align: right; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: var(--muted); }
+    .form-group input {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: 'Cairo', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus { border-color: var(--gold); }
+
+    .btn-login {
+      width: 100%;
+      background: linear-gradient(135deg, #a07830, var(--gold));
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+    .btn-login:hover { box-shadow: 0 6px 20px rgba(201,168,76,0.4); transform: translateY(-1px); }
+
+    .login-error {
+      color: var(--danger);
+      font-size: 0.88rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Admin panel */
+    #admin-panel { display: none; }
+
+    .admin-header {
+      background: #000;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .admin-header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .admin-header-title img { height: 36px; border-radius: 6px; }
+    .admin-header-title span {
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+
+    .btn-logout {
+      background: rgba(231,76,60,0.15);
+      border: 1px solid rgba(231,76,60,0.4);
+      color: var(--danger);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+    .btn-logout:hover { background: rgba(231,76,60,0.3); }
+
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+    /* Tabs */
+    .admin-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+
+    .admin-tab {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .admin-tab.active {
+      background: linear-gradient(135deg, #a07830, var(--gold));
+      color: #000;
+      border-color: var(--gold);
+    }
+
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field-row {
+      margin-bottom: 18px;
+    }
+
+    .field-row label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+    }
+
+    .field-row input,
+    .field-row textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+    .field-row input:focus,
+    .field-row textarea:focus { border-color: var(--gold); }
+
+    /* Steps editor */
+    .steps-editor { display: flex; flex-direction: column; gap: 8px; }
+
+    .step-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-num-badge {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #a07830, var(--gold));
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .step-row input { flex: 1; }
+
+    .btn-remove-step {
+      background: rgba(231,76,60,0.15);
+      border: 1px solid rgba(231,76,60,0.3);
+      color: var(--danger);
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .btn-remove-step:hover { background: rgba(231,76,60,0.3); }
+
+    .btn-add-step {
+      background: rgba(201,168,76,0.1);
+      border: 1px dashed rgba(201,168,76,0.4);
+      color: var(--gold);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      width: 100%;
+      margin-top: 6px;
+    }
+    .btn-add-step:hover { background: rgba(201,168,76,0.2); }
+
+    /* Device accordion */
+    .device-accordion {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .device-accordion-header {
+      background: var(--bg3);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .device-accordion-header:hover { background: #252525; }
+
+    .device-accordion-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .device-accordion-arrow {
+      color: var(--gold);
+      transition: transform 0.3s;
+      font-size: 1.2rem;
+    }
+    .device-accordion.open .device-accordion-arrow { transform: rotate(180deg); }
+
+    .device-accordion-body {
+      display: none;
+      padding: 24px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .device-accordion.open .device-accordion-body { display: block; }
+
+    /* Save buttons */
+    .save-bar {
+      position: sticky;
+      bottom: 0;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .btn-save {
+      background: linear-gradient(135deg, #a07830, var(--gold));
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 32px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-save:hover { box-shadow: 0 6px 20px rgba(201,168,76,0.4); transform: translateY(-1px); }
+
+    .save-status {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .save-status.success { background: rgba(46,204,113,0.15); color: var(--success); border: 1px solid rgba(46,204,113,0.3); }
+    .save-status.error { background: rgba(231,76,60,0.15); color: var(--danger); border: 1px solid rgba(231,76,60,0.3); }
+
+    .view-site-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s;
+    }
+    .view-site-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Password change */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <img class="login-logo" src="/images/logo.jpeg" alt="Logo" />
+    <div class="login-title">لوحة التحكم</div>
+    <div class="login-sub">ليوستور - إدارة صفحة التفعيل</div>
+    <div class="form-group">
+      <label>اسم المستخدم</label>
+      <input type="text" id="login-user" placeholder="أدخل اسم المستخدم" />
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <input type="password" id="login-pass" placeholder="أدخل كلمة المرور" onkeydown="if(event.key==='Enter') doLogin()" />
+    </div>
+    <button class="btn-login" onclick="doLogin()">دخول إلى لوحة التحكم</button>
+    <div class="login-error" id="login-error">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="admin-header">
+    <div class="admin-header-title">
+      <img src="/images/logo.jpeg" alt="Logo" />
+      <span>لوحة التحكم - ليوستور</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="/" target="_blank" class="view-site-btn">🌐 عرض الصفحة</a>
+      <button class="btn-logout" onclick="doLogout()">تسجيل الخروج</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('general', this)">⚙️ الإعدادات العامة</button>
+      <button class="admin-tab" onclick="switchAdminTab('devices', this)">📱 الأجهزة والتعليمات</button>
+      <button class="admin-tab" onclick="switchAdminTab('password', this)">🔐 تغيير كلمة المرور</button>
+    </div>
+
+    <!-- General Settings -->
+    <div class="admin-section active" id="section-general">
+      <div class="card">
+        <div class="card-header">⚙️ إعدادات الموقع</div>
+        <div class="field-row">
+          <label>عنوان الصفحة</label>
+          <input type="text" id="site-title" />
+        </div>
+        <div class="field-row">
+          <label>نص ترحيبي تحت العنوان</label>
+          <input type="text" id="site-subtitle" />
+        </div>
+        <div class="two-col">
+          <div class="field-row">
+            <label>رابط المتجر (leos20.com)</label>
+            <input type="text" id="site-storeUrl" />
+          </div>
+          <div class="field-row">
+            <label>رقم واتساب (بدون +)</label>
+            <input type="text" id="site-whatsapp" placeholder="966500000000" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Devices -->
+    <div class="admin-section" id="section-devices">
+      <div id="devices-accordion"></div>
+    </div>
+
+    <!-- Password -->
+    <div class="admin-section" id="section-password">
+      <div class="card">
+        <div class="card-header">🔐 تغيير بيانات الدخول</div>
+        <div class="two-col">
+          <div class="field-row">
+            <label>اسم المستخدم الجديد</label>
+            <input type="text" id="new-username" />
+          </div>
+          <div class="field-row">
+            <label>كلمة المرور الجديدة</label>
+            <input type="password" id="new-password" />
+          </div>
+        </div>
+        <div class="field-row">
+          <label>كلمة المرور الحالية (للتأكيد)</label>
+          <input type="password" id="current-password" />
+        </div>
+        <button class="btn-save" style="margin-top:8px" onclick="changePassword()">حفظ بيانات الدخول</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="save-bar">
+    <div id="save-status"></div>
+    <button class="btn-save" onclick="saveAll()">💾 حفظ جميع التغييرات</button>
+  </div>
+</div>
+
+<script>
+let token = localStorage.getItem('admin_token');
+let contentData = null;
+
+async function doLogin() {
+  const user = document.getElementById('login-user').value.trim();
+  const pass = document.getElementById('login-pass').value.trim();
+  if (!user || !pass) return;
+
+  const res = await fetch('/api/admin/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: user, password: pass })
+  });
+
+  if (res.ok) {
+    const d = await res.json();
+    token = d.token;
+    localStorage.setItem('admin_token', token);
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    loadAdminData();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  localStorage.removeItem('admin_token');
+  location.reload();
+}
+
+async function loadAdminData() {
+  const res = await fetch('/api/content');
+  contentData = await res.json();
+  populateForm(contentData);
+}
+
+function populateForm(data) {
+  const s = data.site;
+  document.getElementById('site-title').value = s.title || '';
+  document.getElementById('site-subtitle').value = s.subtitle || '';
+  document.getElementById('site-storeUrl').value = s.storeUrl || '';
+  document.getElementById('site-whatsapp').value = s.whatsapp || '';
+
+  renderDevicesAccordion(data.devices);
+}
+
+function renderDevicesAccordion(devices) {
+  const container = document.getElementById('devices-accordion');
+  container.innerHTML = '';
+
+  devices.forEach((dev, i) => {
+    const acc = document.createElement('div');
+    acc.className = 'device-accordion';
+    acc.dataset.index = i;
+
+    acc.innerHTML = `
+      <div class="device-accordion-header" onclick="toggleAccordion(this.parentElement)">
+        <div class="device-accordion-title">
+          <span>${dev.icon}</span>
+          <span>${dev.name}</span>
+        </div>
+        <span class="device-accordion-arrow">▼</span>
+      </div>
+      <div class="device-accordion-body">
+        <div class="two-col">
+          <div class="field-row">
+            <label>اسم الجهاز</label>
+            <input type="text" class="dev-name" value="${dev.name}" />
+          </div>
+          <div class="field-row">
+            <label>اسم التطبيق</label>
+            <input type="text" class="dev-appName" value="${dev.appName || ''}" />
+          </div>
+        </div>
+        <div class="field-row">
+          <label>رابط التحميل (اختياري)</label>
+          <input type="text" class="dev-downloadUrl" value="${dev.downloadUrl || ''}" placeholder="https://..." />
+        </div>
+        <div class="two-col">
+          <div class="field-row">
+            <label>رابط فيديو الشرح (YouTube أو MP4)</label>
+            <input type="text" class="dev-videoUrl" value="${dev.videoUrl || ''}" placeholder="https://youtube.com/watch?v=..." />
+          </div>
+          <div class="field-row">
+            <label>عنوان الفيديو</label>
+            <input type="text" class="dev-videoTitle" value="${dev.videoTitle || ''}" />
+          </div>
+        </div>
+        <div class="field-row">
+          <label>ملاحظة مهمة (اختياري)</label>
+          <input type="text" class="dev-note" value="${dev.note || ''}" />
+        </div>
+        <div class="field-row">
+          <label>خطوات التفعيل</label>
+          <div class="steps-editor" id="steps-${i}">
+            ${dev.steps.map((s, si) => stepRowHtml(si, s)).join('')}
+          </div>
+          <button class="btn-add-step" onclick="addStep(${i})">+ إضافة خطوة</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(acc);
+  });
+}
+
+function stepRowHtml(idx, text) {
+  return `<div class="step-row">
+    <span class="step-num-badge">${idx + 1}</span>
+    <input type="text" class="step-input" value="${text.replace(/"/g, '&quot;')}" />
+    <button class="btn-remove-step" onclick="removeStep(this)" title="حذف">✕</button>
+  </div>`;
+}
+
+function addStep(devIdx) {
+  const container = document.getElementById(`steps-${devIdx}`);
+  const count = container.querySelectorAll('.step-row').length;
+  const div = document.createElement('div');
+  div.innerHTML = stepRowHtml(count, '');
+  container.appendChild(div.firstElementChild);
+  renumberSteps(container);
+}
+
+function removeStep(btn) {
+  const row = btn.closest('.step-row');
+  const container = row.parentElement;
+  row.remove();
+  renumberSteps(container);
+}
+
+function renumberSteps(container) {
+  container.querySelectorAll('.step-num-badge').forEach((b, i) => b.textContent = i + 1);
+}
+
+function toggleAccordion(el) {
+  el.classList.toggle('open');
+}
+
+function switchAdminTab(id, btn) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('section-' + id).classList.add('active');
+}
+
+function collectData() {
+  const data = {
+    site: {
+      title: document.getElementById('site-title').value,
+      subtitle: document.getElementById('site-subtitle').value,
+      logo: contentData.site.logo,
+      storeUrl: document.getElementById('site-storeUrl').value,
+      whatsapp: document.getElementById('site-whatsapp').value,
+      headerBg: contentData.site.headerBg,
+      accentColor: contentData.site.accentColor
+    },
+    devices: []
+  };
+
+  document.querySelectorAll('.device-accordion').forEach((acc, i) => {
+    const orig = contentData.devices[i];
+    const steps = [];
+    acc.querySelectorAll('.step-input').forEach(inp => {
+      if (inp.value.trim()) steps.push(inp.value.trim());
+    });
+
+    data.devices.push({
+      id: orig.id,
+      icon: orig.icon,
+      color: orig.color,
+      name: acc.querySelector('.dev-name').value,
+      appName: acc.querySelector('.dev-appName').value,
+      downloadUrl: acc.querySelector('.dev-downloadUrl').value,
+      videoUrl: acc.querySelector('.dev-videoUrl').value,
+      videoTitle: acc.querySelector('.dev-videoTitle').value,
+      note: acc.querySelector('.dev-note').value,
+      steps
+    });
+  });
+
+  return data;
+}
+
+async function saveAll() {
+  const data = collectData();
+  const statusEl = document.getElementById('save-status');
+
+  const res = await fetch('/api/admin/content', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    contentData = data;
+    statusEl.className = 'save-status success';
+    statusEl.textContent = '✅ تم الحفظ بنجاح';
+  } else if (res.status === 401) {
+    doLogout();
+  } else {
+    statusEl.className = 'save-status error';
+    statusEl.textContent = '❌ فشل الحفظ، حاول مجدداً';
+  }
+
+  setTimeout(() => { statusEl.textContent = ''; statusEl.className = 'save-status'; }, 4000);
+}
+
+async function changePassword() {
+  const newUser = document.getElementById('new-username').value.trim();
+  const newPass = document.getElementById('new-password').value.trim();
+  const curPass = document.getElementById('current-password').value.trim();
+
+  if (!newUser || !newPass || !curPass) {
+    alert('يرجى ملء جميع الحقول');
+    return;
+  }
+
+  const res = await fetch('/api/admin/change-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify({ newUsername: newUser, newPassword: newPass, currentPassword: curPass })
+  });
+
+  if (res.ok) {
+    alert('✅ تم تغيير بيانات الدخول بنجاح. سيتم تسجيل خروجك.');
+    doLogout();
+  } else {
+    alert('❌ كلمة المرور الحالية غير صحيحة');
+  }
+}
+
+// Auto-login if token exists
+if (token) {
+  fetch('/api/admin/verify', { headers: { 'Authorization': 'Bearer ' + token } })
+    .then(r => {
+      if (r.ok) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        loadAdminData();
+      } else {
+        localStorage.removeItem('admin_token');
+        token = null;
+      }
+    });
+}
+</script>
+</body>
+</html>
